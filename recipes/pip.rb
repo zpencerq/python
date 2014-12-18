@@ -47,6 +47,15 @@ execute "install-pip" do
   not_if { ::File.exists?(pip_binary) }
 end
 
+python_pip 'pip' do
+  action :upgrade
+end
+
+python_pip 'setuptools' do
+  action :upgrade
+  version node['python']['setuptools_version']
+end
+
 python_pip 'setuptools' do
   action :upgrade
   version node['python']['setuptools_version']
