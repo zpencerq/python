@@ -33,6 +33,8 @@ else
   pip_binary = "/usr/local/bin/pip"
 end
 
+Chef::Log.info "Pip binary: #{pip_binary}"
+
 cookbook_file "#{Chef::Config[:file_cache_path]}/get-pip.py" do
   source 'get-pip.py'
   mode "0644"
@@ -47,13 +49,12 @@ execute "install-pip" do
   not_if { ::File.exists?(pip_binary) }
 end
 
-python_pip 'pip' do
-  action :upgrade
+package "python-setuptools" do
+  action :remove
 end
 
-python_pip 'setuptools' do
+python_pip 'pip' do
   action :upgrade
-  version node['python']['setuptools_version']
 end
 
 python_pip 'setuptools' do
