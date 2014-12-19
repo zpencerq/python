@@ -34,6 +34,7 @@ else
 end
 
 Chef::Log.info "Pip binary: #{pip_binary}"
+Chef::Log.info "Python binary: #{node['python']['binary']}"
 
 cookbook_file "#{Chef::Config[:file_cache_path]}/get-pip.py" do
   source 'get-pip.py'
